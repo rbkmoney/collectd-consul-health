@@ -122,7 +122,7 @@ def configure_callback(conf):
     '''
     Configures plugin with config provided from collectd.
     '''
-    LOGGER.info('Starting Consul Plugin configuration.')
+    LOGGER.info('Starting Consul Health Plugin configuration.')
     # Default values of config options
     api_host = 'localhost'
     api_port = 8500
