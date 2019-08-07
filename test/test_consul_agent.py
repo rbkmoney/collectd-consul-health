@@ -4,13 +4,12 @@ import unittest
 import sys
 import json
 import os
-import urllib.request
 from urllib.error import HTTPError
 from urllib.error import URLError
 sys.path.insert(0, os.path.dirname(__file__))
 sys.modules['collectd'] = mock.Mock()
-
-from consul_health_plugin import ConsulAgent
+import consul_health_plugin # noqa
+from consul_health_plugin import ConsulAgent # noqa
 
 
 class MockHTTPSHandler(object):

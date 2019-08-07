@@ -4,12 +4,11 @@ import sys
 import json
 import unittest
 from mock import Mock, MagicMock, patch
-import re
-import logging
 sys.path.insert(0, os.path.dirname(__file__))
 # Mock out the collectd module
 sys.modules['collectd'] = Mock()
-import consul_health_plugin
+import consul_health_plugin # noqa
+from consul_health_plugin import ConsulAgent, MetricRecord # noqa
 
 
 class MockMetricSink(object):
@@ -44,44 +43,44 @@ class TestConsulPlugin(unittest.TestCase):
 
         expected_records = []
 
-        expected_records.append(consul_health_plugin.MetricRecord(
-            'service.leftpad.passing',
-            'gauge',
-            1))
-        expected_records.append(consul_health_plugin.MetricRecord(
-            'service.leftpad.warning',
-            'gauge',
-            0))
-        expected_records.append(consul_health_plugin.MetricRecord(
-            'service.leftpad.critical',
-            'gauge',
-            1))
+        expected_records.append(MetricRecord(
+                                'service.leftpad.passing',
+                                'gauge',
+                                1))
+        expected_records.append(MetricRecord(
+                                'service.leftpad.warning',
+                                'gauge',
+                                0))
+        expected_records.append(MetricRecord(
+                                'service.leftpad.critical',
+                                'gauge',
+                                1))
 
-        expected_records.append(consul_health_plugin.MetricRecord(
-            'service.devnull.passing',
-            'gauge',
-            0))
-        expected_records.append(consul_health_plugin.MetricRecord(
-            'service.devnull.warning',
-            'gauge',
-            1))
-        expected_records.append(consul_health_plugin.MetricRecord(
-            'service.devnull.critical',
-            'gauge',
-            0))
+        expected_records.append(MetricRecord(
+                                'service.devnull.passing',
+                                'gauge',
+                                0))
+        expected_records.append(MetricRecord(
+                                'service.devnull.warning',
+                                'gauge',
+                                1))
+        expected_records.append(MetricRecord(
+                                'service.devnull.critical',
+                                'gauge',
+                                0))
 
-        expected_records.append(consul_health_plugin.MetricRecord(
-            'node.passing',
-            'gauge',
-            1))
-        expected_records.append(consul_health_plugin.MetricRecord(
-            'node.warning',
-            'gauge',
-            0))
-        expected_records.append(consul_health_plugin.MetricRecord(
-            'node.critical',
-            'gauge',
-            0))
+        expected_records.append(MetricRecord(
+                                'node.passing',
+                                'gauge',
+                                1))
+        expected_records.append(MetricRecord(
+                                'node.warning',
+                                'gauge',
+                                0))
+        expected_records.append(MetricRecord(
+                                'node.critical',
+                                'gauge',
+                                0))
 
         actual_records = self.plugin._fetch_health_checks()
 
@@ -107,8 +106,11 @@ class TestConsulPlugin(unittest.TestCase):
         ssl_certs = {'ca_cert': None,
                      'client_cert': None,
                      'client_key': None}
-        agent = consul_health_plugin.ConsulAgent(api_host, api_port, api_protocol,
-                                                 acl_token, ssl_certs)
+        agent = ConsulAgent(api_host,
+                            api_port,
+                            api_protocol,
+                            acl_token,
+                            ssl_certs)
         agent.config = self._sample_response('/agent/self')
 
         mock_agent.config = self._sample_response('/agent/self')

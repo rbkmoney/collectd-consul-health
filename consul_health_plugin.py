@@ -6,6 +6,7 @@ import time
 import urllib
 import urllib.error
 import urllib.request
+from urllib.request import HTTPSHandler
 import ssl
 
 
@@ -315,7 +316,7 @@ class ConsulAgent(object):
                 ctx.load_verify_locations(cafile=self.ssl_certs.ca_cert)
                 ctx.load_cert_chain(certfile=self.ssl_certs.client_cert,
                                     keyfile=self.ssl_certs.client_key)
-            opener = urllib.request.build_opener(urllib.request.HTTPSHandler(context=ctx))
+            opener = urllib.request.build_opener(HTTPSHandler(context=ctx))
             opener.addheaders = []
             for k, v in self.headers.items():
                 opener.addheaders.append((k, v))

@@ -1,19 +1,17 @@
 #!/usr/bin/env python
 import mock
 import unittest
-import re
 import sys
 import os
 sys.path.insert(0, os.path.dirname(__file__))
 sys.modules['collectd'] = mock.MagicMock()
-import consul_health_plugin
+import consul_health_plugin # noqa
 
 
 class TestConfiure(unittest.TestCase):
 
     @mock.patch('consul_health_plugin.ConsulPlugin')
     def test_default_config(self, mock_plugin):
-
         mock_conf = mock.Mock()
         mock_conf.children = []
 
@@ -93,8 +91,9 @@ class TestConfiure(unittest.TestCase):
 
         consul_health_plugin.collectd.register_read.assert_called_once()
         consul_health_plugin.collectd.register_read.assert_called_with(
-            mock_plugin().read, name='consul-health.{}:{}'.format(expected_host,
-                                                    expected_port))
+            mock_plugin().read,
+            name='consul-health.{}:{}'.format(expected_host,
+                                              expected_port))
 
 
 def _build_mock_config_child(key, value):
