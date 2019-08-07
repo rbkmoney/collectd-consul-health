@@ -36,7 +36,8 @@ AclToken | Consul ACL token. | None
 CaCertificate | If Consul server has https enabled for the API, provide the path to the CA Certificate. | None
 ClientCertificate | If client-side authentication is enabled, provide the path to the certificate file. | None
 ClientKey | If client-side authentication is enabled, provide the path to the key file. | None
-Debug | Possible values - *true* or *false*<br> | `false`
+Debug | Enable debug level logging. `true` / `false` | `false`
+Verbose | Escalate debug level logging up to info. `true` / `false` | `false`
 
 Note that multiple Consul instances can be configured in the same file.
 

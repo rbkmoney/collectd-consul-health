@@ -21,7 +21,8 @@ class TestConfiure(unittest.TestCase):
                          'acl_token': None,
                          'ssl_certs': {'ca_cert': None, 'client_cert': None,
                                        'client_key': None},
-                         'debug': False}
+                         'debug': False,
+                         'verbose': False}
         consul_health_plugin.configure_callback(mock_conf)
         args, kwargs = mock_plugin.call_args
         for k, v in args[0].items():
@@ -68,6 +69,9 @@ class TestConfiure(unittest.TestCase):
         expected_debug = False
         mock_debug = _build_mock_config_child('Debug', expected_debug)
 
+        expected_verbose = False
+        mock_verbose = _build_mock_config_child('Verbose', expected_verbose)
+
         mock_conf.children = [mock_host,
                               mock_port,
                               mock_protocol,
@@ -75,14 +79,16 @@ class TestConfiure(unittest.TestCase):
                               mock_ca_cert,
                               mock_client_cert,
                               mock_client_key,
-                              mock_debug]
+                              mock_debug,
+                              mock_verbose]
 
         expected_conf = {'api_host': expected_host,
                          'api_port': expected_port,
                          'api_protocol': expected_protocol,
                          'acl_token': expected_acl_token,
                          'ssl_certs': expected_ssl_certs,
-                         'debug': expected_debug}
+                         'debug': expected_debug,
+                         'verbose': expected_verbose}
 
         consul_health_plugin.configure_callback(mock_conf)
         args, kwargs = mock_plugin.call_args

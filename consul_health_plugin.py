@@ -41,20 +41,19 @@ class CollectdLogHandler(logging.Handler):
     info and debug statements using a "verbose" boolean
     Inherits from logging.Handler
     This was copied from docker-collectd-plugin.py
-    Arguments
-        plugin_name -- name of the plugin (default 'unknown')
-        verbose -- enable/disable verbose messages (default False)
     '''
 
-    def __init__(self, plugin_name='unknown', debug=False):
+    def __init__(self, plugin_name='unknown', debug=False, verbose=False):
         '''
         Initializes CollectdLogHandler
         Arguments
             plugin_name -- string name of the plugin (default 'unknown')
-            debug  -- boolean to enable debug level logging, defaults to false
+            debug   -- boolean to enable debug level logging, defaults to false
+            verbose -- boolean to escalate debug level logging up to info
         '''
         self.plugin_name = plugin_name
-        self.enable_debug = debug
+        self.debug = debug
+        self.verbose = verbose
 
         logging.Handler.__init__(self, level=logging.NOTSET)
 
@@ -71,7 +70,9 @@ class CollectdLogHandler(logging.Handler):
                 collectd.warning(self.format(record))
             elif record.levelname == 'INFO':
                 collectd.info(self.format(record))
-            elif record.levelname == 'DEBUG' and self.enable_debug:
+            elif record.levelname == 'DEBUG' and self.verbose:
+                collectd.info(self.format(record))
+            elif record.levelname == 'DEBUG' and self.debug:
                 collectd.debug(self.format(record))
 
 
@@ -145,14 +146,17 @@ def configure_callback(conf):
         elif node.key == 'ClientKey':
             ssl_certs['client_key'] = node.values[0]
         elif node.key == 'Debug':
-            log_handler.enable_debug = _str_to_bool(node.values[0])
+            log_handler.debug = _str_to_bool(node.values[0])
+        elif node.key == 'Verbose':
+            log_handler.verbose = _str_to_bool(node.values[0])
 
     plugin_conf = {'api_host': api_host,
                    'api_port': api_port,
                    'api_protocol': api_protocol,
                    'acl_token': acl_token,
                    'ssl_certs': ssl_certs,
-                   'debug': log_handler.enable_debug
+                   'debug': log_handler.debug,
+                   'verbose': log_handler.verbose
                    }
 
     LOGGER.debug('Plugin Configurations - ')
@@ -336,7 +340,7 @@ class ConsulAgent(object):
 
 # Set up logging
 LOG_FILE_DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
-LOG_FILE_MESSAGE_FORMAT = '[%(levelname)s] [consul-collectd] '\
+LOG_FILE_MESSAGE_FORMAT = '[%(levelname)s] [' + PLUGIN + '] '\
                           '[%(asctime)s UTC]: %(message)s'
 formatter = logging.Formatter(fmt=LOG_FILE_MESSAGE_FORMAT,
                               datefmt=LOG_FILE_DATE_FORMAT)
