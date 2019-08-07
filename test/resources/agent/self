@@ -1,0 +1,91 @@
+{
+	"Config": {
+		"Datacenter": "dc1",
+		"NodeName": "mhost1.dummy.net",
+		"NodeID": "dd1f76b3-88c7-e341-de75-46c311e22b2f",
+		"Revision": "34eff65",
+		"Server": false,
+		"Version": "1.5.0"
+	},
+	"Coord": {
+		"Vec": [
+			-0.002500129466626152,
+			-0.014475114423792132,
+			0.0038518341871340905,
+			0.002667893928236871,
+			0.0162972360883866,
+			-0.00455846690277465,
+			0.009389177110434828,
+			-0.00679976765947137
+		],
+		"Error": 0.2239691721861201,
+		"Adjustment": -0.000712271974730127,
+		"Height": 0.00003814963521519891
+	},
+	"Member": {
+		"Name": "mhost1.dummy.net",
+		"Addr": "10.42.0.10",
+		"Port": 8301,
+		"Tags": {
+			"acls": "0",
+			"build": "1.5.0:34eff65",
+			"dc": "dc1",
+			"id": "dd1f76b3-88c7-e341-de75-46c311e22b2f",
+			"role": "node",
+			"segment": "",
+			"vsn": "2",
+			"vsn_max": "3",
+			"vsn_min": "2"
+		},
+		"Status": 1,
+		"ProtocolMin": 1,
+		"ProtocolMax": 5,
+		"ProtocolCur": 2,
+		"DelegateMin": 2,
+		"DelegateMax": 5,
+		"DelegateCur": 4
+	},
+	"Stats": {
+		"agent": {
+			"check_monitors": "4",
+			"check_ttls": "0",
+			"checks": "4",
+			"services": "4"
+		},
+		"build": {
+			"prerelease": "",
+			"revision": "34eff65",
+			"version": "1.5.0"
+		},
+		"consul": {
+			"acl": "disabled",
+			"known_servers": "1",
+			"server": "false"
+		},
+		"runtime": {
+			"arch": "amd64",
+			"cpu_count": "10",
+			"goroutines": "51",
+			"max_procs": "2",
+			"os": "linux",
+			"version": "go1.12.4"
+		},
+		"serf_lan": {
+			"coordinate_resets": "0",
+			"encrypted": "true",
+			"event_queue": "0",
+			"event_time": "12",
+			"failed": "0",
+			"health_score": "0",
+			"intent_queue": "0",
+			"left": "0",
+			"member_time": "640",
+			"members": "17",
+			"query_queue": "0",
+			"query_time": "1"
+		}
+	},
+	"Meta": {
+		"consul-network-segment": ""
+	}
+}

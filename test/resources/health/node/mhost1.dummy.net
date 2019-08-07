@@ -1,0 +1,58 @@
+[
+    {
+        "Node": "mhost1.dummy.net",
+        "CheckID": "serfHealth",
+        "Name": "Serf Health Status",
+        "Status": "passing",
+        "Notes": "",
+        "Output": "Agent alive and reachable",
+        "ServiceID": "",
+        "ServiceName": "",
+        "ServiceTags": [],
+        "Definition": {},
+        "CreateIndex": 235611137,
+        "ModifyIndex": 269586236
+    },
+    {
+        "Node": "mhost1.dummy.net",
+        "CheckID": "service:leftpad1:8022:ipv6",
+        "Name": "Service 'leftpad' check",
+        "Status": "passing",
+        "Notes": "",
+        "Output": "OK",
+        "ServiceID": "leftpad1:8022",
+        "ServiceName": "leftpad",
+        "ServiceTags": [],
+        "Definition": {},
+        "CreateIndex": 266324041,
+        "ModifyIndex": 270348828
+    },
+    {
+        "Node": "mhost1.dummy.net",
+        "CheckID": "service:leftpad1:8022:ipv4",
+        "Name": "Service 'leftpad' check",
+        "Status": "critical",
+        "Notes": "",
+        "Output": "HTTP GET 503",
+        "ServiceID": "leftpad1:8022",
+        "ServiceName": "leftpad",
+        "ServiceTags": ["production"],
+        "Definition": {},
+        "CreateIndex": 270090716,
+        "ModifyIndex": 270090829
+    },
+    {
+        "Node": "mhost1.dummy.net",
+        "CheckID": "service:devnull1:8022:ipv6",
+        "Name": "Service 'devnull' check",
+        "Status": "warning",
+        "Notes": "",
+        "Output": "HTTP GET 429",
+        "ServiceID": "devnull1:8022",
+        "ServiceName": "devnull",
+        "ServiceTags": ["production"],
+        "Definition": {},
+        "CreateIndex": 268286953,
+        "ModifyIndex": 269368478
+    }
+]
